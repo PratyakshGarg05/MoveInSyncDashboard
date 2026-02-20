@@ -1,0 +1,18 @@
+export const mockAlerts = [
+    { id: "AL-1001", source: "Overspeeding", severity: "Critical", status: "OPEN", timestamp: "2026-02-20T08:30:00Z", driver: "Rajesh Kumar", vehicleId: "KA-01-MJ-1234", metadata: { speed: "95 km/h", limit: "80 km/h" } },
+    { id: "AL-1002", source: "Document Expiry", severity: "Warning", status: "ESCALATED", timestamp: "2026-02-20T09:15:00Z", driver: "Amit Singh", vehicleId: "DL-02-RE-5678", metadata: { docName: "Insurance", expiryDate: "2026-02-18" } },
+    { id: "AL-1003", source: "Negative Feedback", severity: "Info", status: "AUTO-CLOSED", timestamp: "2026-02-20T10:00:00Z", driver: "Suresh Raina", vehicleId: "UP-14-BT-9012", metadata: { reason: "Cleanliness issue" } },
+    { id: "AL-1004", source: "Hard Braking", severity: "Warning", status: "OPEN", timestamp: "2026-02-20T10:45:00Z", driver: "Rajesh Kumar", vehicleId: "KA-01-MJ-1234", metadata: { gForce: "1.2g" } },
+    { id: "AL-1005", source: "Route Deviation", severity: "Info", status: "OPEN", timestamp: "2026-02-20T11:20:00Z", driver: "Vijay Sharma", vehicleId: "HR-26-CT-4321", metadata: { deviationMiles: "5 miles" } },
+    { id: "AL-1006", source: "Overspeeding", severity: "Critical", status: "ESCALATED", timestamp: "2026-02-20T11:50:00Z", driver: "Priya Das", vehicleId: "MH-01-AS-9988", metadata: { speed: "105 km/h", limit: "80 km/h" } },
+    { id: "AL-1007", source: "Overspeeding", severity: "Critical", status: "OPEN", timestamp: "2026-02-20T12:10:00Z", driver: "Rajesh Kumar", vehicleId: "KA-01-MJ-1234", metadata: { speed: "90 km/h", limit: "80 km/h" } },
+    { id: "AL-1008", source: "Negative Feedback", severity: "Warning", status: "OPEN", timestamp: "2026-02-20T12:40:00Z", driver: "Amit Singh", vehicleId: "DL-02-RE-5678", metadata: { reason: "Rude behavior" } },
+    { id: "AL-1009", source: "Route Deviation", severity: "Warning", status: "OPEN", timestamp: "2026-02-20T13:10:00Z", driver: "Vikram Gupta", vehicleId: "TS-09-ER-1122", metadata: { deviationMiles: "2 miles" } },
+    { id: "AL-1010", source: "Hard Braking", severity: "Info", status: "ESCALATED", timestamp: "2026-02-20T13:45:00Z", driver: "Neha Sharma", vehicleId: "MP-04-KL-3344", metadata: { gForce: "1.5g" } },
+    { id: "AL-1011", source: "Idle Time Exceeded", severity: "Info", status: "AUTO-CLOSED", timestamp: "2026-02-20T14:00:00Z", driver: "Rahul Verma", vehicleId: "RJ-14-CC-5566", metadata: { idleTime: "45 mins" } },
+    { id: "AL-1012", source: "Overspeeding", severity: "Critical", status: "RESOLVED", timestamp: "2026-02-20T14:30:00Z", driver: "Arjun Singh", vehicleId: "PB-08-DD-7788", metadata: { speed: "110 km/h", limit: "80 km/h" } },
+    { id: "AL-1013", source: "Document Expiry", severity: "Warning", status: "OPEN", timestamp: "2026-02-20T15:15:00Z", driver: "Manoj Tiwari", vehicleId: "BR-01-EE-9900", metadata: { docName: "Pollution Certificate", expiryDate: "2026-02-19" } },
+    { id: "AL-1014", source: "Hard Braking", severity: "Critical", status: "ESCALATED", timestamp: "2026-02-20T16:00:00Z", driver: "Priya Das", vehicleId: "MH-01-AS-9988", metadata: { gForce: "1.8g" } },
+    { id: "AL-1015", source: "Negative Feedback", severity: "Warning", status: "RESOLVED", timestamp: "2026-02-20T16:45:00Z", driver: "Rajesh Kumar", vehicleId: "KA-01-MJ-1234", metadata: { reason: "Late arrival" } },
+    { id: "AL-1016", source: "Route Deviation", severity: "Info", status: "AUTO-CLOSED", timestamp: "2026-02-20T17:30:00Z", driver: "Suresh Raina", vehicleId: "UP-14-BT-9012", metadata: { deviationMiles: "1 mile" } }
+];
