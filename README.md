@@ -68,3 +68,4 @@ npx cypress open
 ```bash
 npm run test
 ```
+🚀 **Live Demo:** [Click here to view the project](https://move-in-sync-dashboard.vercel.app)
