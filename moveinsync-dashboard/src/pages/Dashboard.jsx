@@ -57,7 +57,6 @@ const Dashboard = () => {
         const managedSources = Object.values(ruleSourceMap);
         const activeRulesBySource = {};
 
-        // Safely check rules exists
         (rules || []).forEach(r => {
             if (r.active) activeRulesBySource[ruleSourceMap[r.name]] = r;
         });
@@ -66,18 +65,19 @@ const Dashboard = () => {
             const rule = activeRulesBySource[alert.source];
 
             if (managedSources.includes(alert.source)) {
-                if (!rule) return null; // Rule off = hide alert
+                if (!rule) return null;
 
-                //Fixed fake score (0 to 100) for every alert on basis of ID
                 const alertNum = parseInt(alert.id.replace(/\D/g, '')) || 0;
                 const fakeScore = (alertNum * 17) % 100;
 
                 if (fakeScore < rule.threshold) return null;
 
                 let dynamicStatus = alert.status;
-                if (rule.action === 'Auto-Close Route') dynamicStatus = 'AUTO-CLOSED';
-                else if (rule.action === 'Escalate to Manager') dynamicStatus = 'ESCALATED';
-                else if (rule.action === 'Alert Driver') dynamicStatus = 'OPEN';
+                if (dynamicStatus !== 'RESOLVED') {
+                    if (rule.action === 'Auto-Close Route') dynamicStatus = 'AUTO-CLOSED';
+                    else if (rule.action === 'Escalate to Manager') dynamicStatus = 'ESCALATED';
+                    else if (rule.action === 'Alert Driver') dynamicStatus = 'OPEN';
+                }
 
                 return { ...alert, status: dynamicStatus };
             }
@@ -85,7 +85,6 @@ const Dashboard = () => {
             return alert;
         }).filter(Boolean);
 
-        // Regular UI filters
         return dynamicAlerts.filter(alert => {
             const searchLower = searchTerm.toLowerCase();
             const displayId = `#${alert.id}`.toLowerCase();
