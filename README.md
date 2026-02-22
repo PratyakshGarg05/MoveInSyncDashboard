@@ -48,15 +48,23 @@ git clone https://github.com/PratyakshGarg05/MoveInSyncDashboard.git
 cd MoveInSyncDashboard
 ```
 **2. Install dependencies**
+```bash
 npm install
+```
 
 **3. Start the development server**
+```bash
 npm run dev
+```
 
 The application will be accessible at http://localhost:5173.
 
 **4. Run E2E Tests (Cypress)**
+```bash
 npx cypress open
+```
 
 **5. Run Unit Tests (Jest)**
+```bash
 npm run test
+```
