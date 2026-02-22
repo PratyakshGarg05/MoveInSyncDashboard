@@ -1,7 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, ArrowRight, AlertTriangle } from 'lucide-react';
 
 const RuleModal = ({ rule, onClose, onSave }) => {
+    // Dropdown Arrays
+    const alertTypes = ['Overspeeding', 'Route Deviation', 'Hard Braking', 'Document Expiry', 'Negative Feedback', 'Velocity', 'Engine', 'Geofence', 'Telematics'];
+
+    const actions = [
+        { value: 'Escalate to Manager', label: 'Escalate to Manager' },
+        { value: 'Auto-Close Route', label: 'Auto-Close Route' },
+        { value: 'Alert Driver', label: 'Alert Driver' },
+        { value: 'Log Incident', label: 'Log Incident' }
+    ];
+
+    const timeWindows = [
+        { value: 1, label: '1 min' },
+        { value: 5, label: '5 mins' },
+        { value: 10, label: '10 mins' },
+        { value: 15, label: '15 mins' },
+        { value: 30, label: '30 mins' },
+        { value: 60, label: '60 mins' },
+        { value: 120, label: '2 hours' }
+    ];
+
     // Form States
     const [type, setType] = useState(rule.type);
     const [threshold, setThreshold] = useState(rule.threshold);
@@ -12,23 +32,16 @@ const RuleModal = ({ rule, onClose, onSave }) => {
     const [error, setError] = useState('');
     const [showDiff, setShowDiff] = useState(false);
 
-    const alertTypes = ['Overspeeding', 'Route Deviation', 'Hard Braking', 'Document Expiry', 'Negative Feedback'];
-
-    const actions = [
-        { value: 'ESCALATE', label: 'Mark as ESCALATED' },
-        { value: 'AUTO_CLOSE', label: 'Mark as AUTO-CLOSED' },
-        { value: 'NOTIFY_MANAGER', label: 'Notify Fleet Manager' }
-    ];
-
-    const timeWindows = [
-        { value: 30, label: '30 mins' },
-        { value: 60, label: '60 mins' },
-        { value: 120, label: '2 hours' },
-        { value: 1440, label: '24 hours' }
-    ];
+    // Ensure state updates if a new rule is passed
+    useEffect(() => {
+        setType(rule.type);
+        setThreshold(rule.threshold);
+        setTimeWindow(rule.timeWindow);
+        setAction(rule.action);
+    }, [rule]);
 
     const handlePreSave = () => {
-        // 1. Validation (Must be >= 1)
+        // Validation (Must be >= 1)
         if (Number(threshold) < 1) {
             setError('Count threshold must be at least 1.');
             return;
@@ -37,11 +50,10 @@ const RuleModal = ({ rule, onClose, onSave }) => {
 
         // Check if anything actually changed
         if (type === rule.type && Number(threshold) === rule.threshold && Number(timeWindow) === rule.timeWindow && action === rule.action) {
-            onClose(); // Koi change nahi hai, toh sidha close kar do
+            onClose(); 
             return;
         }
 
-        // 2. Agar validation pass aur changes hain, toh Diff screen dikhao
         setShowDiff(true);
     };
 
@@ -56,7 +68,7 @@ const RuleModal = ({ rule, onClose, onSave }) => {
     };
 
     return (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[999] p-4 animate-in fade-in duration-200">
             <div className="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden">
 
                 {/* Header */}
@@ -81,7 +93,6 @@ const RuleModal = ({ rule, onClose, onSave }) => {
                                 </div>
                             )}
 
-                            {/* Alert Type Ab Proper Dropdown Hai */}
                             <div>
                                 <label className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Alert Type</label>
                                 <select value={type} onChange={(e) => setType(e.target.value)} className="w-full border border-gray-200 rounded-lg p-2.5 text-sm font-bold text-gray-700 outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer">
@@ -102,7 +113,7 @@ const RuleModal = ({ rule, onClose, onSave }) => {
                                 </div>
                                 <div className="flex-1">
                                     <label className="block text-[11px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">Time Window</label>
-                                    <select value={timeWindow} onChange={(e) => setTimeWindow(e.target.value)} className="w-full border border-gray-200 rounded-lg p-2.5 text-sm font-bold text-gray-700 outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer">
+                                    <select value={timeWindow} onChange={(e) => setTimeWindow(Number(e.target.value))} className="w-full border border-gray-200 rounded-lg p-2.5 text-sm font-bold text-gray-700 outline-none focus:ring-2 focus:ring-blue-500 bg-white cursor-pointer">
                                         {timeWindows.map(tw => <option key={tw.value} value={tw.value}>{tw.label}</option>)}
                                     </select>
                                 </div>

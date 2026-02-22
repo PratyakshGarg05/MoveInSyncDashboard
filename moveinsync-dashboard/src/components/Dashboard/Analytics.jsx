@@ -71,7 +71,7 @@ const Analytics = ({ alerts }) => {
                                 data={severityData}
                                 cx="50%"
                                 cy="50%"
-                                innerRadius={60} // Yeh isko "Donut" banata hai
+                                innerRadius={60} 
                                 outerRadius={85}
                                 paddingAngle={4}
                                 dataKey="value"
@@ -83,7 +83,6 @@ const Analytics = ({ alerts }) => {
                             <PieTooltip content={<CustomPieTooltip />} />
                         </PieChart>
                     </ResponsiveContainer>
-                    {/* Donut ke beech ka text */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mt-4">
                         <span className="text-2xl font-black text-gray-800">{alerts.length}</span>
                         <span className="text-[10px] text-gray-400 font-bold uppercase">Total</span>
@@ -109,7 +108,6 @@ const Analytics = ({ alerts }) => {
                 </div>
                 <div className="h-[240px] w-full">
                     <ResponsiveContainer width="100%" height="100%">
-                        {/* layout="vertical" isko horizontal bar chart banata hai */}
                         <BarChart data={sourceData} layout="vertical" margin={{ top: 0, right: 20, left: 10, bottom: 0 }}>
                             <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#f1f5f9" />
                             <XAxis type="number" hide />

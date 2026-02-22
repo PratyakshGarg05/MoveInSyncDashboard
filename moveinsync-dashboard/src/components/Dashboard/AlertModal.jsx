@@ -6,7 +6,7 @@ const AlertModal = ({ alert, onClose, onResolve }) => {
     if (!alert) return null;
 
     return (
-        <div className="fixed inset-0 bg-black/60 z-50 flex justify-center items-center p-4 backdrop-blur-md">
+        <div className="fixed inset-0 bg-black/60 z-[999] flex justify-center items-center p-4 backdrop-blur-md">
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[92vh] overflow-hidden flex flex-col animate-in fade-in zoom-in duration-200">
 
                 {/* Modal Header */}

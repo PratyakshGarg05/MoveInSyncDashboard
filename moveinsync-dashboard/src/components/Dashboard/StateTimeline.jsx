@@ -38,16 +38,13 @@ const StateTimeline = ({ status, timestamp, source }) => {
     const isEscalated = status === 'ESCALATED' || status === 'RESOLVED' || status === 'AUTO-CLOSED';
     const isResolved = status === 'RESOLVED' || status === 'AUTO-CLOSED';
 
-    // NAYA LOGIC: Auto-driven vs Manual ki visual styling
     const getFinalStepConfig = () => {
         if (!isResolved) {
             return { icon: CircleDashed, color: 'text-gray-300', bgColor: 'bg-gray-50' };
         }
         if (status === 'AUTO-CLOSED') {
-            // Auto-driven visual distinction (Bot Icon, Gray color)
             return { icon: Bot, color: 'text-slate-600', bgColor: 'bg-slate-100' };
         }
-        // Manual visual distinction (User Icon, Green color)
         return { icon: UserCheck, color: 'text-green-600', bgColor: 'bg-green-100' };
     };
 
@@ -82,7 +79,7 @@ const StateTimeline = ({ status, timestamp, source }) => {
             color: finalStepStyle.color, // Dynamic Color
             bgColor: finalStepStyle.bgColor, // Dynamic Background
             isActive: isResolved,
-            // NAYA: Visual Tagging
+            // Visual Tagging
             tag: status === 'RESOLVED' ? 'Manual Action' : 'System Auto-Logged',
             isManual: status === 'RESOLVED'
         }

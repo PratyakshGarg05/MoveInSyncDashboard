@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { Settings, Edit2, CheckCircle, AlertOctagon, X } from 'lucide-react';
 import RuleModal from '../components/Rules/RuleModal';
 
-// NAYA IMPORT: App ke "Brain" se connect karne ke liye
 import { useAlerts } from '../context/AlertContext';
 
 const RuleConfig = () => {
-    // SABSE BADA BADLAAV: Local useState hata diya! Ab Global Context se Rules aa rahe hain.
-    const { rules, setRules } = useAlerts();
+    const { rules = [], setRules } = useAlerts();
 
     const [editingRule, setEditingRule] = useState(null);
     const [toastMessage, setToastMessage] = useState('');
@@ -33,7 +31,7 @@ const RuleConfig = () => {
                 throw new Error("API Error: Threshold is unreasonably high. Configuration rejected.");
             }
 
-            // Global rules update ho rahe hain!
+            // Global rules are updating
             setRules(rules.map(r => r.id === updatedRule.id ? updatedRule : r));
             setEditingRule(null);
             showToast('Rule configuration saved successfully!');
@@ -52,7 +50,7 @@ const RuleConfig = () => {
     };
 
     return (
-        <div className="p-8 relative min-h-screen">
+        <div className="p-4 md:p-8 relative min-h-screen">
             
             {/* SUCCESS TOAST */}
             {toastMessage && (
@@ -81,49 +79,51 @@ const RuleConfig = () => {
             )}
 
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                <div className="p-6 border-b border-gray-100 flex items-center space-x-2">
+                <div className="p-4 md:p-6 border-b border-gray-100 flex items-center space-x-2">
                     <Settings className="w-5 h-5 text-gray-500" />
                     <h3 className="text-lg font-bold text-gray-800">Active Escalation Rules</h3>
                     {isSaving && <span className="ml-4 text-xs font-bold text-blue-500 animate-pulse">Saving changes to server...</span>}
                 </div>
 
-                <table className="w-full text-left border-collapse">
-                    <thead>
-                        <tr className="bg-gray-50 text-gray-600 text-xs uppercase font-semibold">
-                            <th className="px-6 py-4">Rule Name</th>
-                            <th className="px-6 py-4">Alert Type</th>
-                            <th className="px-6 py-4">Condition</th>
-                            <th className="px-6 py-4">Status</th>
-                            <th className="px-6 py-4 text-right">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-100">
-                        {rules.map((rule) => (
-                            <tr key={rule.id} className={`hover:bg-gray-50 transition-colors ${!rule.active ? 'opacity-60' : ''}`}>
-                                <td className="px-6 py-4 font-bold text-gray-900 text-sm">{rule.name}</td>
-                                <td className="px-6 py-4 text-sm font-medium text-gray-500">{rule.type}</td>
-                                <td className="px-6 py-4 text-sm text-gray-700">
-                                    <div className="bg-gray-50 border border-gray-100 rounded-md inline-block px-3 py-1.5">
-                                        If count <span className="font-black text-blue-600">&ge; {rule.threshold}</span> within <span className="font-black text-gray-800">{rule.timeWindow}m</span> &rarr; <span className="font-bold text-gray-600">{rule.action}</span>
-                                    </div>
-                                </td>
-                                <td className="px-6 py-4">
-                                    <button
-                                        onClick={() => toggleRule(rule.id)}
-                                        className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${rule.active ? 'bg-green-500' : 'bg-gray-300'}`}
-                                    >
-                                        <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform shadow-sm ${rule.active ? 'translate-x-6' : 'translate-x-1'}`} />
-                                    </button>
-                                </td>
-                                <td className="px-6 py-4 text-right">
-                                    <button onClick={() => setEditingRule(rule)} className="text-blue-600 hover:text-blue-800 p-2 hover:bg-blue-50 rounded-lg transition-colors">
-                                        <Edit2 className="w-4 h-4" />
-                                    </button>
-                                </td>
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse whitespace-nowrap">
+                        <thead>
+                            <tr className="bg-gray-50 text-gray-600 text-xs uppercase font-semibold">
+                                <th className="px-4 md:px-6 py-4">Rule Name</th>
+                                <th className="px-4 md:px-6 py-4">Alert Type</th>
+                                <th className="px-4 md:px-6 py-4">Condition</th>
+                                <th className="px-4 md:px-6 py-4">Status</th>
+                                <th className="px-4 md:px-6 py-4 text-right">Action</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody className="divide-y divide-gray-100">
+                            {rules.map((rule) => (
+                                <tr key={rule.id} className={`hover:bg-gray-50 transition-colors ${!rule.active ? 'opacity-60' : ''}`}>
+                                    <td className="px-4 md:px-6 py-4 font-bold text-gray-900 text-sm">{rule.name}</td>
+                                    <td className="px-4 md:px-6 py-4 text-sm font-medium text-gray-500">{rule.type}</td>
+                                    <td className="px-4 md:px-6 py-4 text-sm text-gray-700">
+                                        <div className="bg-gray-50 border border-gray-100 rounded-md inline-block px-3 py-1.5">
+                                            If count <span className="font-black text-blue-600">&ge; {rule.threshold}</span> within <span className="font-black text-gray-800">{rule.timeWindow}m</span> &rarr; <span className="font-bold text-gray-600">{rule.action}</span>
+                                        </div>
+                                    </td>
+                                    <td className="px-4 md:px-6 py-4">
+                                        <button
+                                            onClick={() => toggleRule(rule.id)}
+                                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${rule.active ? 'bg-green-500' : 'bg-gray-300'}`}
+                                        >
+                                            <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform shadow-sm ${rule.active ? 'translate-x-6' : 'translate-x-1'}`} />
+                                        </button>
+                                    </td>
+                                    <td className="px-4 md:px-6 py-4 text-right">
+                                        <button onClick={() => setEditingRule(rule)} className="text-blue-600 hover:text-blue-800 p-2 hover:bg-blue-50 rounded-lg transition-colors">
+                                            <Edit2 className="w-4 h-4" />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             {editingRule && (
