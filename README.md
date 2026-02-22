@@ -46,7 +46,7 @@ Follow these steps to run the project locally:
 ```bash
 git clone https://github.com/PratyakshGarg05/MoveInSyncDashboard.git
 cd MoveInSyncDashboard
-
+```
 **2. Install dependencies**
 npm install
 
