@@ -21,7 +21,6 @@ const PageSkeleton = () => (
       <div className="h-32 bg-gray-300 rounded-xl"></div>
       <div className="h-32 bg-gray-300 rounded-xl"></div>
     </div>
-b
     {/* Table/List skeleton */}
     <div className="space-y-3">
       <div className="h-6 bg-gray-300 rounded w-3/4"></div>
