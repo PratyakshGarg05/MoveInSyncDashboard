@@ -43,6 +43,7 @@ The project follows a robust testing pyramid ensuring high reliability:
 Follow these steps to run the project locally:
 
 **1. Clone the repository**
+```bash
 git clone https://github.com/PratyakshGarg05/MoveInSyncDashboard.git
 cd MoveInSyncDashboard
 
